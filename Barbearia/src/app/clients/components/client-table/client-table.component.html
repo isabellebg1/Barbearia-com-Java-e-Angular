@@ -1,36 +1,45 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
 
-    <ng-containter matColumnDef="name">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>Nome</th>
         <td mat-cell *matCellDef="let client">{{client.name}}</td>
-    </ng-containter>
+    </ng-container>
 
-    <ng-containter matColumnDef="email">
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef>E-mail</th>
         <td mat-cell *matCellDef="let client">{{client.email}}</td>
-    </ng-containter>
+    </ng-container>
 
-    <ng-containter matColumnDef="phone">
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
         <th mat-header-cell *matHeaderCellDef>Celular</th>
         <td mat-cell *matCellDef="let client">{{formatPhone(client.phone)}}</td>
-    </ng-containter>
+    </ng-container>
 
-    <ng-containter matColumnDef="actions">
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let client">
-            <button mat-mini-fab extended matTooltip="excluir" class="delete-button" (click)="delete(client)">
+            <button mat-mini-fab extended matTooltip="excluir" class="delete-button" (click)="delete(client)" aria-label="Excluir cliente" style="margin-right: 8px;">
                 <mat-icon>delete</mat-icon>
             </button>
-
-            <button mat-mini-fab extended matTooltip="atualizar" class="update-button" (click)="update(client)">
+            <button mat-mini-fab extended matTooltip="atualizar" class="update-button" (click)="update(client)" aria-label="Atualizar cliente">
                 <mat-icon>edit</mat-icon>
             </button>
         </td>
-    </ng-containter>
+    </ng-container>
 
+    <!-- Header and Row Definitions -->
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- No Data Row -->
+    <tr *matNoDataRow>
+        <td colspan="4" class="no-data">Nenhum cliente encontrado.</td>
+    </tr>
 </table>
 
-<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
-</mat-paginator>
+<!-- Paginator -->
+<mat-paginator
